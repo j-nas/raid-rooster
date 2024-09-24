@@ -1,5 +1,6 @@
 import { signIn } from "@/server/auth";
 import { Button } from "../ui/button";
+import BattlenetIcon from "../svg/battlenet-icon";
 
 export function SignIn() {
   return (
@@ -9,7 +10,10 @@ export function SignIn() {
         await signIn("battlenet");
       }}
     >
-      <Button type="submit">Sign In</Button>
+      <Button size="sm" type="submit">
+        <BattlenetIcon className="mr-2 h-6 w-6" />
+        Sign In
+      </Button>
     </form>
   );
 }
