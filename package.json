@@ -9,6 +9,8 @@
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
+    "db:reset": "prisma db push --force-reset && prisma db seed",
+    "db:seed": "prisma db seed",
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
