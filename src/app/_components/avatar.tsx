@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { auth, signOut } from "@/server/auth";
+import { LogOut } from "lucide-react";
 
 export default async function Avatar() {
   const session = await auth();
@@ -30,13 +31,21 @@ export default async function Avatar() {
         <DropdownMenuLabel>{session?.user?.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
+          <a href="/profile">Profile</a>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <a href="/profile">profile</a>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <form
             action={async () => {
               "use server";
               await signOut();
             }}
           >
-            <button type="submit">Sign out</button>
+            <button type="submit" className="flex">
+              <LogOut className="mr-2 h-4 w-4 place-self-center" /> Sign out
+            </button>
           </form>
         </DropdownMenuItem>
       </DropdownMenuContent>
