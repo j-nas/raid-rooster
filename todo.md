@@ -1,3 +1,4 @@
 - user profile
 - raid creation
 - raid invitation
+- coolify hosting
