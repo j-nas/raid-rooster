@@ -19,15 +19,17 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      onboarded: boolean;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    onboarded: boolean;
+    //   // ...other properties
+    //   // role: UserRole;
+  }
 }
 
 /**
@@ -42,9 +44,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       user: {
         ...session.user,
         id: user.id,
+        onboarded: user.onboarded,
+
       },
     }),
+
+
   },
+
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
 
@@ -53,13 +60,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: env.BATTLENET_CLIENT_SECRET,
       issuer: "https://us.battle.net/oauth",
       authorization: {
-        params: { state: "STATE" }, // The state parameter is required by BattleNet
+
+        params: {
+          state: "STATE", scope: "openid wow.profile"
+
+        }, // The state parameter is required by BattleNet
+
       },
+
+
+
 
 
 
     }),
 
   ],
+
 });
 

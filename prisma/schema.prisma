@@ -56,14 +56,17 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
+    id                String      @id @default(cuid())
+    name              String?
+    email             String?     @unique
+    emailVerified     DateTime?
+    onboarded         Boolean     @default(false)
+    image             String?
+    accounts          Account[]
+    sessions          Session[]
+    posts             Post[]
+    characters        Character[]
+    charactersUpdated DateTime?
 }
 
 model VerificationToken {
@@ -84,3 +87,27 @@ model VerificationToken {
 //     createdById String
 
 // }
+
+model Character {
+    id    Int    @id
+    name  String
+    class String
+
+    createdAt        DateTime          @default(now())
+    updatedAt        DateTime          @updatedAt
+    user             User              @relation(fields: [userId], references: [id])
+    userId           String
+    realm            String
+    realmSlug        String
+    realmId          Int
+    characterDetails CharacterDetails?
+}
+
+model CharacterDetails {
+    id          String    @id @default(cuid())
+    character   Character @relation(fields: [characterId], references: [id])
+    characterId Int       @unique
+    spec        String
+    role        String
+    ilvl        Int
+}
